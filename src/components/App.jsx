@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import ContactForm from './ContactForm/ContactForm';
@@ -7,10 +7,7 @@ import ContactsList from './ContactsList/ContactsList';
 
 export default function App() {
   const contacts = useSelector(state => state.contacts);
-
-  useEffect(() => {
-    window.localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
+  const isShow = contacts.length > 0;
 
   return (
       <div
@@ -20,9 +17,11 @@ export default function App() {
       >
         <h1>Phonebook</h1>
         <ContactForm/>
-        <h2>Contacts</h2>
-        <Filter />
-        <ContactsList />
+        {isShow && <>
+          <h2>Contacts</h2>
+          <Filter />
+          <ContactsList />
+        </>}
       </div>
     );
 };
